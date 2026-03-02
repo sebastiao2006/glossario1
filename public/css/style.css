@@ -1,0 +1,154 @@
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f4f6f9;
+}
+
+header{
+    background:#feae1b;
+    color:white;
+    padding:15px 30px;
+}
+
+.header-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    height:95px;
+}
+
+.container{
+    padding:20px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card h3{
+    margin:0;
+    font-size:14px;
+    color:#666;
+}
+
+.card p{
+    font-size:26px;
+    margin:5px 0 0;
+    font-weight:bold;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+    margin-top:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th, td{
+    padding:10px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+}
+
+th{
+    background:#feae1b;
+    color:white;
+}
+
+.status{
+    padding:5px 10px;
+    border-radius:6px;
+    color:white;
+    font-size:12px;
+}
+
+.concluido{background:#16a34a;}
+.andamento{background:#f59e0b;}
+.pendente{background:#3b82f6;}
+.atrasado{background:#ef4444;}
+
+.alert{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    margin-top:20px;
+}
+
+.filters{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+select, input{
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+.progress{
+    background:#eee;
+    border-radius:5px;
+    height:8px;
+}
+
+.progress-bar{
+    background:#2563eb;
+    height:8px;
+    border-radius:5px;
+}
+
+/* FORMULÁRIO OCULTO */
+#addTaskForm{
+    display:none;
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+    display:grid;
+    gap:10px;
+}
+
+#addTaskForm input, #addTaskForm select{
+    width:100%;
+}
+
+#addTaskForm button{
+    background:#feae1b;
+    color:white;
+    border:none;
+    padding:10px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+#showFormBtn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:5px;
+    cursor:pointer;
+    margin-bottom:15px;
+}
