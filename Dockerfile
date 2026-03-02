@@ -1,7 +1,7 @@
-# 1. Base PHP com FPM
-FROM php:8.2-fpm
+# 1. Base PHP CLI (não FPM)
+FROM php:8.2-cli
 
-# 2. Instala pacotes do sistema
+# 2. Instala dependências do sistema
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
@@ -16,19 +16,17 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # 4. Diretório de trabalho
 WORKDIR /var/www/html
 
-# 5. Copia os arquivos do projeto
+# 5. Copia projeto
 COPY . .
 
-# 6. Instala dependências do Laravel
+# 6. Instala dependências
 RUN composer install --no-dev --optimize-autoloader
 
-# 7. Cache para produção
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
+# 7. Permissões
+RUN chmod -R 777 storage bootstrap/cache
 
-# 8. Expõe a porta do Laravel
-EXPOSE 8000
+# 8. Expõe porta padrão do Render
+EXPOSE 10000
 
-# 9. Comando para iniciar Laravel
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# 9. Inicia usando variável PORT do Render
+CMD php artisan serve --host=0.0.0.0 --port=${PORT}
