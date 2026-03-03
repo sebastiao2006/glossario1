@@ -6,7 +6,7 @@
 <title>Dashboard - Controle de Tarefas</title>
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('js/script.js') }}" defer></script>
 </head>
 
 <body>
