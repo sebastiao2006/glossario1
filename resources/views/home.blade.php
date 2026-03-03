@@ -13,7 +13,7 @@
 
 <header>
     <div class="header-title">
-        <img src="logo.png" alt="Logo" class="logo">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width:120px;">
         <h2>Dashboard de Tarefas - Empresa de Contabilidade</h2>
     </div>
 </header>
@@ -91,13 +91,32 @@
 </div>
 
     <!-- CARDS -->
-    <div class="cards">
-        <div class="card"><h3>Total de Tarefas</h3><p id="totalTasks">0</p></div>
-        <div class="card"><h3>Concluídas</h3><p id="completedTasks">0</p></div>
-        <div class="card"><h3>Em Andamento</h3><p id="inProgressTasks">0</p></div>
-        <div class="card"><h3>Atrasadas</h3><p id="overdueTasks">0</p></div>
-        <div class="card"><h3>Produtividade</h3><p id="productivity">0%</p></div>
+<div class="cards">
+    <div class="card">
+        <h3>Total de Tarefas</h3>
+        <p>{{ $total }}</p>
     </div>
+
+    <div class="card">
+        <h3>Concluídas</h3>
+        <p>{{ $concluidas }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Em Andamento</h3>
+        <p>{{ $emAndamento }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Atrasadas</h3>
+        <p>{{ $atrasadas }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Produtividade</h3>
+        <p>{{ $produtividade }}%</p>
+    </div>
+</div>
 
     <!-- FILTROS -->
     <h3>Filtros</h3>
