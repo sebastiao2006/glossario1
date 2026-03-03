@@ -27,26 +27,41 @@
     <button id="showFormBtn">+ Adicionar Tarefa</button>
 
     <!-- FORMULÁRIO DE ADICIONAR TAREFA -->
-    <div id="addTaskForm">
-        <h3>Adicionar Nova Tarefa</h3>
-        <input type="text" id="newFunc" placeholder="Funcionário">
-        <input type="text" id="newCliente" placeholder="Cliente">
-        <input type="text" id="newTipo" placeholder="Tipo">
-        <select id="newPrioridade">
-            <option value="Alta">Alta</option>
-            <option value="Média">Média</option>
-            <option value="Baixa">Baixa</option>
-        </select>
-        <input type="date" id="newInicio">
-        <input type="date" id="newPrazo">
-        <select id="newStatus">
-            <option value="Pendente">Pendente</option>
-            <option value="Em andamento">Em andamento</option>
-            <option value="Concluído">Concluído</option>
-            <option value="Atrasado">Atrasado</option>
-        </select>
-        <button onclick="addTask()">Adicionar Tarefa</button>
-    </div>
+ <div id="addTaskForm">
+    <h3>Adicionar Nova Tarefa</h3>
+
+    <label for="newFunc">Funcionário</label>
+    <input type="text" id="newFunc" placeholder="Nome do funcionário">
+
+    <label for="newCliente">Cliente</label>
+    <input type="text" id="newCliente" placeholder="Nome do cliente">
+
+    <label for="newTipo">Tipo de Tarefa</label>
+    <input type="text" id="newTipo" placeholder="Ex: Fechamento contábil">
+
+    <label for="newPrioridade">Prioridade</label>
+    <select id="newPrioridade">
+        <option value="Alta">Alta</option>
+        <option value="Média">Média</option>
+        <option value="Baixa">Baixa</option>
+    </select>
+
+    <label for="newInicio">Data de Início</label>
+    <input type="date" id="newInicio">
+
+    <label for="newPrazo">Prazo</label>
+    <input type="date" id="newPrazo">
+
+    <label for="newStatus">Status</label>
+    <select id="newStatus">
+        <option value="Pendente">Pendente</option>
+        <option value="Em andamento">Em andamento</option>
+        <option value="Concluído">Concluído</option>
+        <option value="Atrasado">Atrasado</option>
+    </select>
+
+    <button onclick="addTask()">Adicionar Tarefa</button>
+</div>
 
     <!-- CARDS -->
     <div class="cards">

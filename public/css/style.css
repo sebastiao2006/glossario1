@@ -119,30 +119,50 @@ select, input{
     border-radius:5px;
 }
 
-/* FORMULÁRIO OCULTO */
-#addTaskForm{
-    display:none;
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:20px;
-    display:grid;
-    gap:10px;
+/* Esconde o formulário inicialmente */
+#addTaskForm {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    border-radius: 5px;
+    max-width: 400px; /* largura menor */
 }
 
-#addTaskForm input, #addTaskForm select{
-    width:100%;
+#addTaskForm h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
-#addTaskForm button{
-    background:#feae1b;
-    color:white;
-    border:none;
-    padding:10px;
-    border-radius:5px;
-    cursor:pointer;
+#addTaskForm label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 2px;
+    color: #333;
 }
 
+#addTaskForm input, 
+#addTaskForm select {
+    width: 100%;
+    padding: 6px 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+#addTaskForm button {
+    width: 100%;
+    background: #feae1b;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
 #showFormBtn{
     background:#2563eb;
     color:white;
