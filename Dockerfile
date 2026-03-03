@@ -7,7 +7,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build
+RUN npm run prod
 
 
 # ---------- STAGE 2: PHP + NGINX ----------
@@ -28,8 +28,8 @@ WORKDIR /var/www
 
 COPY . .
 
-# Copiar build do Vite do stage anterior
-COPY --from=node_builder /app/public/build /var/www/public/build
+# Copia arquivos compilados (CSS/JS)
+COPY --from=node_builder /app/public /var/www/public
 
 RUN composer install --no-dev --optimize-autoloader
 
