@@ -1,14 +1,17 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const showFormBtn = document.getElementById('showFormBtn');
-    const addTaskForm = document.getElementById('addTaskForm');
+    const showBtn = document.getElementById('showFormBtn');
+    const closeBtn = document.getElementById('closeFormBtn');
+    const overlay = document.getElementById('overlay');
 
-    showFormBtn.addEventListener('click', function() {
-        if(addTaskForm.style.display === 'none' || addTaskForm.style.display === '') {
-            addTaskForm.style.display = 'block';
-            showFormBtn.textContent = '✖ Fechar Formulário';
-        } else {
-            addTaskForm.style.display = 'none';
-            showFormBtn.textContent = '+ Adicionar Tarefa';
+    showBtn.addEventListener('click', () => {
+        overlay.style.display = 'flex';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        overlay.style.display = 'none';
+    });
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.style.display = 'none';
         }
     });
-});

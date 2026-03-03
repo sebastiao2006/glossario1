@@ -10,10 +10,7 @@
 </head>
 
 <body>
-@foreach($posts as $post)
-    <h2>{{ $post->titulo }}</h2>
-    <p>{{ $post->conteudo }}</p>
-@endforeach
+
 <header>
     <div class="header-title">
         <img src="logo.png" alt="Logo" class="logo">
@@ -23,44 +20,74 @@
 
 <div class="container">
 
-    <!-- BOTÃO PARA MOSTRAR FORMULÁRIO -->
-    <button id="showFormBtn">+ Adicionar Tarefa</button>
+<!-- BOTÃO -->
+<button id="showFormBtn" class="btn-open">+ Adicionar Tarefa</button>
 
-    <!-- FORMULÁRIO DE ADICIONAR TAREFA -->
- <div id="addTaskForm">
-    <h3>Adicionar Nova Tarefa</h3>
+<!-- OVERLAY -->
+<div id="overlay" class="overlay">
 
-    <label for="newFunc">Funcionário</label>
-    <input type="text" id="newFunc" placeholder="Nome do funcionário">
+    <div class="modal">
 
-    <label for="newCliente">Cliente</label>
-    <input type="text" id="newCliente" placeholder="Nome do cliente">
+        <div class="modal-header">
+            <h3>Adicionar Nova Tarefa</h3>
+            <button id="closeFormBtn" class="close-btn">&times;</button>
+        </div>
 
-    <label for="newTipo">Tipo de Tarefa</label>
-    <input type="text" id="newTipo" placeholder="Ex: Fechamento contábil">
+        <form action="{{ route('tarefas.store') }}" method="POST">
+            @csrf
 
-    <label for="newPrioridade">Prioridade</label>
-    <select id="newPrioridade">
-        <option value="Alta">Alta</option>
-        <option value="Média">Média</option>
-        <option value="Baixa">Baixa</option>
-    </select>
+            <div class="form-group">
+                <label for="funcionario">Funcionário</label>
+                <input type="text" id="funcionario" name="funcionario" required>
+            </div>
 
-    <label for="newInicio">Data de Início</label>
-    <input type="date" id="newInicio">
+            <div class="form-group">
+                <label for="cliente">Cliente</label>
+                <input type="text" id="cliente" name="cliente" required>
+            </div>
 
-    <label for="newPrazo">Prazo</label>
-    <input type="date" id="newPrazo">
+            <div class="form-group">
+                <label for="tipo">Tipo de Tarefa</label>
+                <input type="text" id="tipo" name="tipo" required>
+            </div>
 
-    <label for="newStatus">Status</label>
-    <select id="newStatus">
-        <option value="Pendente">Pendente</option>
-        <option value="Em andamento">Em andamento</option>
-        <option value="Concluído">Concluído</option>
-        <option value="Atrasado">Atrasado</option>
-    </select>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="prioridade">Prioridade</label>
+                    <select id="prioridade" name="prioridade">
+                        <option value="Alta">Alta</option>
+                        <option value="Média">Média</option>
+                        <option value="Baixa">Baixa</option>
+                    </select>
+                </div>
 
-    <button onclick="addTask()">Adicionar Tarefa</button>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="Pendente">Pendente</option>
+                        <option value="Em andamento">Em andamento</option>
+                        <option value="Concluído">Concluído</option>
+                        <option value="Atrasado">Atrasado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="inicio">Data de Início</label>
+                    <input type="date" id="inicio" name="inicio">
+                </div>
+
+                <div class="form-group">
+                    <label for="prazo">Prazo</label>
+                    <input type="date" id="prazo" name="prazo">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Salvar Tarefa</button>
+        </form>
+
+    </div>
 </div>
 
     <!-- CARDS -->
@@ -109,7 +136,20 @@
                 <th>Progresso</th>
             </tr>
         </thead>
-        <tbody id="tasksBody"></tbody>
+        <tbody>
+@foreach($tarefas as $tarefa)
+<tr>
+    <td>{{ $tarefa->funcionario }}</td>
+    <td>{{ $tarefa->cliente }}</td>
+    <td>{{ $tarefa->tipo }}</td>
+    <td>{{ $tarefa->prioridade }}</td>
+    <td>{{ $tarefa->inicio }}</td>
+    <td>{{ $tarefa->prazo }}</td>
+    <td>{{ $tarefa->status }}</td>
+    <td>-</td>
+</tr>
+@endforeach
+</tbody>
     </table>
 
     <h3 style="margin-top:30px;">Controle por Cliente</h3>
@@ -122,7 +162,16 @@
                 <th>Status Geral</th>
             </tr>
         </thead>
-        <tbody id="clientsBody"></tbody>
+<tbody>
+@foreach($tarefas->groupBy('cliente') as $cliente => $grupo)
+<tr>
+    <td>{{ $cliente }}</td>
+    <td>{{ $grupo->count() }}</td>
+    <td>{{ $grupo->pluck('funcionario')->unique()->join(', ') }}</td>
+    <td>{{ $grupo->pluck('status')->unique()->join(', ') }}</td>
+</tr>
+@endforeach
+</tbody>
     </table>
 
     <!-- GRÁFICOS -->
