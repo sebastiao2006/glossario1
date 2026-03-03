@@ -1,16 +1,3 @@
-# ---------- STAGE 1: BUILD FRONTEND ----------
-FROM node:20 AS node_builder
-
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-RUN npm run prod
-
-
-# ---------- STAGE 2: PHP + NGINX ----------
 FROM php:8.2-fpm
 
 RUN apt-get update && apt-get install -y \
@@ -27,9 +14,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www
 
 COPY . .
-
-# Copia arquivos compilados (CSS/JS)
-COPY --from=node_builder /app/public /var/www/public
 
 RUN composer install --no-dev --optimize-autoloader
 
