@@ -13,7 +13,7 @@
 
 <header>
     <div class="header-title">
-        <img src="logo.png" alt="Logo" class="logo">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width:120px;">
         <h2>Dashboard de Tarefas - Empresa de Contabilidade</h2>
     </div>
 </header>
