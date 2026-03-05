@@ -10,10 +10,7 @@
 </head>
 
 <body>
-@foreach($posts as $post)
-    <h2>{{ $post->titulo }}</h2>
-    <p>{{ $post->conteudo }}</p>
-@endforeach
+
 <header>
     <div class="header-title">
         <img src="logo.png" alt="Logo" class="logo">
@@ -23,38 +20,80 @@
 
 <div class="container">
 
-    <!-- BOTÃO PARA MOSTRAR FORMULÁRIO -->
-    <button id="showFormBtn">+ Adicionar Tarefa</button>
+<!-- BOTÃO -->
+<button id="showFormBtn">+ Adicionar Tarefa</button>
 
-    <!-- FORMULÁRIO DE ADICIONAR TAREFA -->
-    <div id="addTaskForm">
+<!-- MODAL -->
+<div id="taskModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close">&times;</span>
+
         <h3>Adicionar Nova Tarefa</h3>
-        <input type="text" id="newFunc" placeholder="Funcionário">
-        <input type="text" id="newCliente" placeholder="Cliente">
-        <input type="text" id="newTipo" placeholder="Tipo">
-        <select id="newPrioridade">
-            <option value="Alta">Alta</option>
-            <option value="Média">Média</option>
-            <option value="Baixa">Baixa</option>
+
+        <form method="POST" action="{{ route('tarefas.store') }}">
+        @csrf
+
+        <input type="text" name="funcionario" placeholder="Funcionário" required>
+
+        <input type="text" name="cliente" placeholder="Cliente" required>
+
+        <input type="text" name="tipo" placeholder="Tipo" required>
+
+        <select name="prioridade">
+        <option value="Alta">Alta</option>
+        <option value="Média">Média</option>
+        <option value="Baixa">Baixa</option>
         </select>
-        <input type="date" id="newInicio">
-        <input type="date" id="newPrazo">
-        <select id="newStatus">
-            <option value="Pendente">Pendente</option>
-            <option value="Em andamento">Em andamento</option>
-            <option value="Concluído">Concluído</option>
-            <option value="Atrasado">Atrasado</option>
+
+        <input type="date" name="inicio">
+
+        <input type="date" name="prazo">
+
+        <select name="status">
+        <option value="Pendente">Pendente</option>
+        <option value="Em andamento">Em andamento</option>
+        <option value="Concluído">Concluído</option>
+        <option value="Atrasado">Atrasado</option>
         </select>
-        <button onclick="addTask()">Adicionar Tarefa</button>
+
+        <button type="submit">Adicionar Tarefa</button>
+
+        </form>
+
     </div>
+
+</div>
 
     <!-- CARDS -->
     <div class="cards">
-        <div class="card"><h3>Total de Tarefas</h3><p id="totalTasks">0</p></div>
-        <div class="card"><h3>Concluídas</h3><p id="completedTasks">0</p></div>
-        <div class="card"><h3>Em Andamento</h3><p id="inProgressTasks">0</p></div>
-        <div class="card"><h3>Atrasadas</h3><p id="overdueTasks">0</p></div>
-        <div class="card"><h3>Produtividade</h3><p id="productivity">0%</p></div>
+
+            <div class="card">
+            <h3>Total de Tarefas</h3>
+            <p>{{ $totalTasks }}</p>
+            </div>
+
+            <div class="card">
+            <h3>Concluídas</h3>
+            <p>{{ $completedTasks }}</p>
+            </div>
+
+            <div class="card">
+            <h3>Em Andamento</h3>
+            <p>{{ $inProgressTasks }}</p>
+            </div>
+
+            <div class="card">
+            <h3>Atrasadas</h3>
+            <p>{{ $overdueTasks }}</p>
+            </div>
+
+            <div class="card">
+            <h3>Produtividade</h3>
+            <p>{{ $productivity }}%</p>
+            </div>
+
     </div>
 
     <!-- FILTROS -->
@@ -80,22 +119,87 @@
     </div>
 
     <!-- TABELAS -->
-    <h3>Controle de Tarefas</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Funcionário</th>
-                <th>Cliente</th>
-                <th>Tipo</th>
-                <th>Prioridade</th>
-                <th>Início</th>
-                <th>Prazo</th>
-                <th>Status</th>
-                <th>Progresso</th>
-            </tr>
-        </thead>
-        <tbody id="tasksBody"></tbody>
-    </table>
+<h3>Controle de Tarefas</h3>
+
+<table>
+<thead>
+<tr>
+<th>Funcionário</th>
+<th>Cliente</th>
+<th>Tipo</th>
+<th>Prioridade</th>
+<th>Início</th>
+<th>Prazo</th>
+<th>Status</th>
+<th>Progresso</th>
+<th>Ações</th>
+</tr>
+</thead>
+
+<tbody>
+
+@foreach($tarefas as $tarefa)
+
+<tr>
+
+<td>{{ $tarefa->funcionario }}</td>
+<td>{{ $tarefa->cliente }}</td>
+<td>{{ $tarefa->tipo }}</td>
+<td>{{ $tarefa->prioridade }}</td>
+<td>{{ $tarefa->inicio }}</td>
+<td>{{ $tarefa->prazo }}</td>
+<td>{{ $tarefa->status }}</td>
+
+<td>
+
+@if($tarefa->status == "Concluído")
+
+<div class="progress-bar">
+<div class="progress" style="width:100%"></div>
+</div>
+
+@elseif($tarefa->status == "Em andamento")
+
+<div class="progress-bar">
+<div class="progress yellow" style="width:50%"></div>
+</div>
+
+@else
+
+<div class="progress-bar">
+<div class="progress red" style="width:10%"></div>
+</div>
+
+@endif
+
+</td>
+
+<td>
+
+<!-- CONCLUIR -->
+<form action="{{ route('tarefas.concluir',$tarefa->id) }}" method="POST" style="display:inline;">
+@csrf
+<button class="btn-concluir">Concluir</button>
+</form>
+
+<!-- EDITAR -->
+<a href="{{ route('tarefas.edit',$tarefa->id) }}" class="btn-editar">Editar</a>
+
+<!-- ELIMINAR -->
+<form action="{{ route('tarefas.destroy',$tarefa->id) }}" method="POST" style="display:inline;">
+@csrf
+@method('DELETE')
+<button class="btn-delete">Eliminar</button>
+</form>
+
+</td>
+
+</tr>
+
+@endforeach
+
+</tbody>
+</table>
 
     <h3 style="margin-top:30px;">Controle por Cliente</h3>
     <table>
@@ -107,7 +211,31 @@
                 <th>Status Geral</th>
             </tr>
         </thead>
-        <tbody id="clientsBody"></tbody>
+        <tbody>
+
+                @foreach($clientes as $cliente)
+
+                <tr>
+
+                <td>{{ $cliente->cliente }}</td>
+
+                <td>{{ $cliente->total }}</td>
+
+                <td>{{ $cliente->responsaveis }}</td>
+
+                <td>
+                @if($cliente->total > 0)
+                Em andamento
+                @else
+                Sem tarefas
+                @endif
+                </td>
+
+                </tr>
+
+                @endforeach
+
+        </tbody>
     </table>
 
     <!-- GRÁFICOS -->
