@@ -7,40 +7,68 @@ use App\Models\Tarefa;
 
 class TarefaController extends Controller
 {
+public function index(Request $request)
+{
+    $query = Tarefa::query();
 
-    public function index()
-    {
-        $tarefas = Tarefa::all();
-
-        $clientes = Tarefa::select('cliente')
-            ->selectRaw('COUNT(*) as total')
-            ->selectRaw('GROUP_CONCAT(DISTINCT funcionario) as responsaveis')
-            ->groupBy('cliente')
-            ->get();
-
-        // CARDS
-        $totalTasks = Tarefa::count();
-        $completedTasks = Tarefa::where('status', 'like', '%Conclu%')->count();
-
-        $inProgressTasks = Tarefa::where('status', 'like', '%andamento%')->count();
-
-        $overdueTasks = Tarefa::where('status', 'like', '%Atras%')->count();
-
-        // produtividade (% tarefas concluídas)
-        $productivity = $totalTasks > 0 
-            ? round(($completedTasks / $totalTasks) * 100) 
-            : 0;
-
-        return view('home', compact(
-            'tarefas',
-            'clientes',
-            'totalTasks',
-            'completedTasks',
-            'inProgressTasks',
-            'overdueTasks',
-            'productivity'
-        ));
+    // FILTRO FUNCIONÁRIO
+    if($request->funcionario){
+        $query->where('funcionario', $request->funcionario);
     }
+
+    // FILTRO STATUS
+    if($request->status){
+        $query->where('status', $request->status);
+    }
+
+    // FILTRO PERÍODO
+    if($request->periodo){
+
+        if($request->periodo == 'Semana'){
+            $query->where('created_at','>=',now()->subDays(7));
+        }
+
+        if($request->periodo == 'Mes'){
+            $query->where('created_at','>=',now()->subDays(30));
+        }
+
+    }
+
+    $tarefas = $query->get();
+
+    $clientes = Tarefa::select('cliente')
+        ->selectRaw('COUNT(*) as total')
+        ->selectRaw('GROUP_CONCAT(DISTINCT funcionario) as responsaveis')
+        ->groupBy('cliente')
+        ->get();
+
+    $funcionarios = Tarefa::select('funcionario')
+        ->distinct()
+        ->get();
+
+    $totalTasks = $tarefas->count();
+
+    $completedTasks = $tarefas->where('status','Concluído')->count();
+
+    $inProgressTasks = $tarefas->where('status','Em andamento')->count();
+
+    $overdueTasks = $tarefas->where('status','Atrasado')->count();
+
+    $productivity = $totalTasks > 0 
+        ? round(($completedTasks / $totalTasks) * 100)
+        : 0;
+
+    return view('home', compact(
+        'tarefas',
+        'clientes',
+        'funcionarios',
+        'totalTasks',
+        'completedTasks',
+        'inProgressTasks',
+        'overdueTasks',
+        'productivity'
+    ));
+}
 
     public function store(Request $request)
     {

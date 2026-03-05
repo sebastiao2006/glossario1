@@ -97,26 +97,44 @@
     </div>
 
     <!-- FILTROS -->
-    <h3>Filtros</h3>
-    <div class="filters">
-        <select id="filterEmployee">
-            <option value="">Funcionário</option>
-        </select>
+ <h3>Filtros</h3>
 
-        <select id="filterStatus">
+    <form method="GET" action="{{ route('home') }}">
+
+            <div class="filters">
+
+            <select name="funcionario">
+            <option value="">Funcionário</option>
+
+            @foreach($funcionarios as $func)
+            <option value="{{ $func->funcionario }}">
+            {{ $func->funcionario }}
+            </option>
+            @endforeach
+
+            </select>
+
+
+            <select name="status">
             <option value="">Status</option>
             <option value="Pendente">Pendente</option>
             <option value="Em andamento">Em andamento</option>
             <option value="Concluído">Concluído</option>
             <option value="Atrasado">Atrasado</option>
-        </select>
+            </select>
 
-        <select id="filterPeriod">
+
+            <select name="periodo">
             <option value="">Período</option>
             <option value="Semana">Semana</option>
-            <option value="Mês">Mês</option>
-        </select>
-    </div>
+            <option value="Mes">Mês</option>
+            </select>
+
+            <button type="submit">Filtrar</button>
+
+            </div>
+
+    </form>
 
     <!-- TABELAS -->
 <h3>Controle de Tarefas</h3>
