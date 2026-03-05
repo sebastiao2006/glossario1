@@ -88,11 +88,28 @@ th{
 .pendente{background:#3b82f6;}
 .atrasado{background:#ef4444;}
 
-.alert{
+/* .alert{
     background:white;
     padding:15px;
     border-radius:10px;
     margin-top:20px;
+    color:black;
+} */
+
+.alert-badge{
+background:#ff4d4f;
+color:white;
+padding:4px 8px;
+border-radius:5px;
+font-size:12px;
+}
+
+.alert-badge:contains("amanhã"){
+background:#faad14;
+}
+
+.alert-badge:contains("hoje"){
+background:#ff4d4f;
 }
 
 .filters{

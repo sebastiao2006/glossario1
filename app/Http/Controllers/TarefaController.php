@@ -31,33 +31,58 @@ public function index(Request $request)
         if($request->periodo == 'Mes'){
             $query->where('created_at','>=',now()->subDays(30));
         }
-
     }
 
     $tarefas = $query->get();
 
+    // CLIENTES
     $clientes = Tarefa::select('cliente')
         ->selectRaw('COUNT(*) as total')
         ->selectRaw('GROUP_CONCAT(DISTINCT funcionario) as responsaveis')
         ->groupBy('cliente')
         ->get();
 
+    // FUNCIONÁRIOS
     $funcionarios = Tarefa::select('funcionario')
         ->distinct()
         ->get();
 
+    // CARDS
     $totalTasks = $tarefas->count();
-
     $completedTasks = $tarefas->where('status','Concluído')->count();
-
     $inProgressTasks = $tarefas->where('status','Em andamento')->count();
-
     $overdueTasks = $tarefas->where('status','Atrasado')->count();
 
     $productivity = $totalTasks > 0 
         ? round(($completedTasks / $totalTasks) * 100)
         : 0;
 
+    // ALERTAS AUTOMÁTICOS
+    $alerts = [];
+
+foreach($tarefas as $tarefa){
+
+    if($tarefa->status == "Atrasado"){
+        $alerts[] = "⚠️ Tarefa do cliente {$tarefa->cliente} está atrasada.";
+    }
+
+    if($tarefa->prazo && $tarefa->status != "Concluído"){
+
+        $dias = now()->diffInDays($tarefa->prazo, false);
+
+        if($dias == 1){
+            $alerts[] = "⏰ Tarefa do cliente {$tarefa->cliente} vence amanhã.";
+        }
+
+        if($dias == 0){
+            $alerts[] = "🚨 Tarefa do cliente {$tarefa->cliente} vence hoje.";
+        }
+
+        if($dias < 0){
+            $alerts[] = "❗ Tarefa do cliente {$tarefa->cliente} está atrasada.";
+        }
+    }
+}
     return view('home', compact(
         'tarefas',
         'clientes',
@@ -66,10 +91,10 @@ public function index(Request $request)
         'completedTasks',
         'inProgressTasks',
         'overdueTasks',
-        'productivity'
+        'productivity',
+        'alerts'
     ));
 }
-
     public function store(Request $request)
     {
 

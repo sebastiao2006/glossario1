@@ -15,4 +15,9 @@ class Tarefa extends Model
         'prazo',
         'status'
     ];
+
+    protected $casts = [
+        'inicio' => 'date',
+        'prazo' => 'date'
+    ];
 }
