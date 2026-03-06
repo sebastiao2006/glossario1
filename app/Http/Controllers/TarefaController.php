@@ -96,20 +96,29 @@ foreach($tarefas as $tarefa){
     ));
 }
     public function store(Request $request)
-    {
+{
+    $request->validate([
+        'funcionario' => 'required|string',
+        'cliente' => 'required|string',
+        'tipo' => 'required|string',
+        'prioridade' => 'required',
+        'inicio' => 'required|date|after_or_equal:2025-12-12|before_or_equal:2026-12-12',
+        'prazo' => 'required|date|after_or_equal:inicio|before_or_equal:2026-12-12',
+        'status' => 'required'
+    ]);
 
-        Tarefa::create([
-            'funcionario' => $request->funcionario,
-            'cliente' => $request->cliente,
-            'tipo' => $request->tipo,
-            'prioridade' => $request->prioridade,
-            'inicio' => $request->inicio,
-            'prazo' => $request->prazo,
-            'status' => $request->status,
-        ]);
+    Tarefa::create([
+        'funcionario' => $request->funcionario,
+        'cliente' => $request->cliente,
+        'tipo' => $request->tipo,
+        'prioridade' => $request->prioridade,
+        'inicio' => $request->inicio,
+        'prazo' => $request->prazo,
+        'status' => $request->status,
+    ]);
 
-        return redirect()->route('home');
-    }
+    return redirect()->route('home');
+}
 
     public function concluir($id)
 {
@@ -139,6 +148,11 @@ public function edit($id)
 
 public function update(Request $request,$id)
 {
+    $request->validate([
+        'inicio' => 'required|date|after_or_equal:2025-12-12|before_or_equal:2026-12-12',
+        'prazo' => 'required|date|after_or_equal:inicio|before_or_equal:2026-12-12'
+    ]);
+
     $tarefa = Tarefa::find($id);
 
     $tarefa->update([
