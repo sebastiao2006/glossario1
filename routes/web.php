@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TarefaController;
+use App\Http\Controllers\ClienteController;
 
 Route::get('/', [TarefaController::class, 'index'])->name('home');
 
@@ -14,3 +15,12 @@ Route::delete('/tarefas/{id}', [TarefaController::class, 'destroy'])->name('tare
 Route::get('/tarefas/{id}/edit', [TarefaController::class, 'edit'])->name('tarefas.edit');
 
 Route::put('/tarefas/{id}', [TarefaController::class, 'update'])->name('tarefas.update');
+
+
+
+Route::get('/clientes', [ClienteController::class, 'index']);
+Route::post('/clientes', [ClienteController::class, 'store']);
+
+Route::view('/funcionarios','funcionarios');
+
+Route::view('/tarefas','tarefas');
