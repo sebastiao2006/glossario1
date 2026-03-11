@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\FuncionarioController;
 
 Route::get('/', [TarefaController::class, 'index'])->name('home');
 
@@ -16,11 +17,12 @@ Route::get('/tarefas/{id}/edit', [TarefaController::class, 'edit'])->name('taref
 
 Route::put('/tarefas/{id}', [TarefaController::class, 'update'])->name('tarefas.update');
 
-
-
 Route::get('/clientes', [ClienteController::class, 'index']);
+
 Route::post('/clientes', [ClienteController::class, 'store']);
 
-Route::view('/funcionarios','funcionarios');
+Route::get('/funcionarios', [FuncionarioController::class, 'index']);
+
+Route::post('/funcionarios', [FuncionarioController::class, 'store']);
 
 Route::view('/tarefas','tarefas');

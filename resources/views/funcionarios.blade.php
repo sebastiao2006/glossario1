@@ -71,16 +71,18 @@
 
 <h2>Cadastrar Funcionário</h2>
 
-<form>
+<form action="/funcionarios" method="POST">
 
-<input type="text" placeholder="Nome">
+@csrf
 
-<input type="email" placeholder="Email">
+<input type="text" name="nome" placeholder="Nome" required>
 
-<input type="text" placeholder="Telefone">
+<input type="email" name="email" placeholder="Email">
 
-<select>
-<option>Cargo</option>
+<input type="text" name="telefone" placeholder="Telefone">
+
+<select name="cargo">
+<option value="">Cargo</option>
 <option>Contabilista</option>
 <option>Gestor</option>
 <option>Assistente</option>
@@ -89,6 +91,7 @@
 <button type="submit">Cadastrar</button>
 
 </form>
+
 
 <h2>Lista de Funcionários</h2>
 
@@ -102,13 +105,17 @@
 <th>Cargo</th>
 </tr>
 
+@foreach($funcionarios as $funcionario)
+
 <tr>
-<td>1</td>
-<td>Maria Santos</td>
-<td>maria@email.com</td>
-<td>923000000</td>
-<td>Contabilista</td>
+<td>{{ $funcionario->id }}</td>
+<td>{{ $funcionario->nome }}</td>
+<td>{{ $funcionario->email }}</td>
+<td>{{ $funcionario->telefone }}</td>
+<td>{{ $funcionario->cargo }}</td>
 </tr>
+
+@endforeach
 
 </table>
 
