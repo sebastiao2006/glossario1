@@ -176,8 +176,8 @@
                 <td>{{ $tarefa->cliente }}</td>
                 <td>{{ $tarefa->tipo }}</td>
                 <td>{{ $tarefa->prioridade }}</td>
-                <td>{{ $tarefa->inicio }}</td>
-                <td>{{ $tarefa->prazo }}</td>
+                <td>{{ \Carbon\Carbon::parse($tarefa->inicio)->format('d/m/Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($tarefa->prazo)->format('d/m/Y') }}</td>
 
                 <!-- STATUS -->
                 <td>{{ $tarefa->status }}</td>
@@ -273,12 +273,14 @@
                     <td>{{ $cliente->total }}</td>
 
                     <td>{{ $cliente->responsaveis }}</td>
-
+                    
                     <td>
-                    @if($cliente->total > 0)
+                    @if($cliente->status == 'Concluído')
+                    Concluído
+                    @elseif($cliente->status == 'Em andamento')
                     Em andamento
                     @else
-                    Sem tarefas
+                    Pendente
                     @endif
                     </td>
 
@@ -310,39 +312,40 @@
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
     
 
-const funcionarios = @json($ranking->pluck('funcionario'));
-const tarefas = @json($ranking->pluck('total'));
+    const funcionarios = @json($ranking->pluck('funcionario'));
+    const tarefas = @json($ranking->pluck('total'));
 
-const ctx = document.getElementById('teamChart');
+    const ctx = document.getElementById('teamChart');
 
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: funcionarios,
-        datasets: [{
-            label: 'Tarefas Concluídas',
-            data: tarefas
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: { display:false }
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: funcionarios,
+            datasets: [{
+                label: 'Tarefas Concluídas',
+                data: tarefas
+            }]
         },
-        scales: {
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    precision: 0,   // força números inteiros
-                    stepSize: 1     // incrementa de 1 em 1
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display:false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0,   // força números inteiros
+                        stepSize: 1     // incrementa de 1 em 1
+                    }
                 }
             }
         }
-    }
-});
+    });
 
 
 </script>

@@ -40,11 +40,20 @@ public function index(Request $request)
     $tarefas = $query->get();
 
     // CLIENTES
-    $clientes = Tarefa::select('cliente')
-        ->selectRaw('COUNT(*) as total')
-        ->selectRaw('GROUP_CONCAT(DISTINCT funcionario) as responsaveis')
-        ->groupBy('cliente')
-        ->get();
+$clientes = Tarefa::select(
+        'cliente',
+        DB::raw('COUNT(*) as total'),
+        DB::raw('GROUP_CONCAT(DISTINCT funcionario) as responsaveis'),
+        DB::raw("
+            CASE
+                WHEN SUM(CASE WHEN status = 'Em andamento' THEN 1 ELSE 0 END) > 0 THEN 'Em andamento'
+                WHEN SUM(CASE WHEN status = 'Pendente' THEN 1 ELSE 0 END) > 0 THEN 'Pendente'
+                ELSE 'Concluído'
+            END as status
+        ")
+    )
+    ->groupBy('cliente')
+    ->get();
 
     // FUNCIONÁRIOS
     $funcionarios = Tarefa::select('funcionario')

@@ -8,36 +8,36 @@
 <script src="{{ asset('js/script.js') }}" defer></script>
 <style>
 
-.formu{
-    background:white;
-    padding:30px;          /* aumentou o espaço interno */
-    border-radius:8px;
-    margin:20px 0 40px 0;  /* margem em cima e embaixo */
-}
-.btn-pdf{
-background:#e74c3c;
-color:white;
-padding:6px 10px;
-text-decoration:none;
-border-radius:4px;
-}
-input{
-    width:100%;
-    padding:12px;
-    margin-top:12px;
-    margin-bottom:18px;    /* um pouco mais de espaço entre campos */
-    border:1px solid #ddd;
-    border-radius:5px;
-}
-
-button{
-    background:#feae1b;
+    .formu{
+        background:white;
+        padding:30px;          /* aumentou o espaço interno */
+        border-radius:8px;
+        margin:20px 0 40px 0;  /* margem em cima e embaixo */
+    }
+    .btn-pdf{
+    background:#e74c3c;
     color:white;
-    border:none;
-    padding:12px 24px;     /* botão um pouco maior */
-    border-radius:5px;
-    cursor:pointer;
-}
+    padding:6px 10px;
+    text-decoration:none;
+    border-radius:4px;
+    }
+    input{
+        width:100%;
+        padding:12px;
+        margin-top:12px;
+        margin-bottom:18px;    /* um pouco mais de espaço entre campos */
+        border:1px solid #ddd;
+        border-radius:5px;
+    }
+
+    button{
+        background:#feae1b;
+        color:white;
+        border:none;
+        padding:12px 24px;     /* botão um pouco maior */
+        border-radius:5px;
+        cursor:pointer;
+    }
 
 </style>
 </head>
@@ -135,8 +135,8 @@ Baixar PDF Geral
                 <td>{{ $tarefa->cliente }}</td>
                 <td>{{ $tarefa->tipo }}</td>
                 <td>{{ $tarefa->prioridade }}</td>
-                <td>{{ $tarefa->inicio }}</td>
-                <td>{{ $tarefa->prazo }}</td>
+                <td>{{ \Carbon\Carbon::parse($tarefa->inicio)->format('d/m/Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($tarefa->prazo)->format('d/m/Y') }}</td>
                 <td>{{ $tarefa->status }}</td>
                 <td>
                     @php
