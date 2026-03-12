@@ -5,30 +5,71 @@
 <title>Lista de Tarefas</title>
 
 <style>
-body{
-font-family: Arial;
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
 }
 
-table{
-width:100%;
-border-collapse: collapse;
+.header {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-th,td{
-border:1px solid #ddd;
-padding:8px;
-text-align:left;
+.header img {
+    width: 120px; /* Ajuste o tamanho do logo */
+    margin-bottom: 10px;
 }
 
-th{
-background:#f4f4f4;
+h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: 12px;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Barra dourada */
+.footer-bar {
+    height: 5px;
+    background-color: #feae1b; /* dourado */
+    margin-top: 30px;
+}
+
+/* Rodapé da empresa */
+.footer {
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    margin-top: 5px;
 }
 </style>
 
 </head>
 <body>
 
-<h2>Lista de Todas as Tarefas</h2>
+<div class="header">
+    <img src="{{ public_path('images/logo.jpg') }}" alt="Logo da Empresa">
+    <h2>Lista de Todas as Tarefas</h2>
+</div>
 
 <table>
 <tr>
@@ -54,6 +95,13 @@ background:#f4f4f4;
 @endforeach
 
 </table>
+
+<div class="footer-bar"></div>
+
+<div class="footer">
+    Empresa XYZ - Rua Exemplo, Nº 123 - Luanda, Angola <br>
+    Telefone: +244 123 456 789 | Email: contato@empresa.xyz
+</div>
 
 </body>
 </html>
