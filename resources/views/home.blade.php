@@ -32,7 +32,7 @@
 <div class="container">
 
     <!-- BOTÃO -->
-    <button id="showFormBtn">+ Adicionar Tarefa</button>
+    {{-- <button id="showFormBtn">+ Adicionar Tarefa</button> --}}
 
     <!-- MODAL -->
     <div id="taskModal" class="modal">

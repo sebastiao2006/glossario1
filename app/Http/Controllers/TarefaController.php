@@ -95,6 +95,21 @@ foreach($tarefas as $tarefa){
         'alerts'
     ));
 }
+
+public function indexTarefas()
+{
+    $tarefas = Tarefa::all();
+
+    // Se você quiser também mostrar dados por cliente
+    $clientes = Tarefa::select('cliente')
+        ->selectRaw('COUNT(*) as total')
+        ->selectRaw('GROUP_CONCAT(funcionario) as responsaveis')
+        ->groupBy('cliente')
+        ->get();
+
+    return view('tarefas', compact('tarefas', 'clientes'));
+}
+
     public function store(Request $request)
 {
     $request->validate([
@@ -117,7 +132,7 @@ foreach($tarefas as $tarefa){
         'status' => $request->status,
     ]);
 
-    return redirect()->route('home');
+    return redirect()->route('tarefas.index');
 }
 
     public function concluir($id)
