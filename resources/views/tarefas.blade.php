@@ -14,7 +14,13 @@
     border-radius:8px;
     margin:20px 0 40px 0;  /* margem em cima e embaixo */
 }
-
+.btn-pdf{
+background:#e74c3c;
+color:white;
+padding:6px 10px;
+text-decoration:none;
+border-radius:4px;
+}
 input{
     width:100%;
     padding:12px;
@@ -103,6 +109,10 @@ button{
 </form>
     <!-- TABELA DE TAREFAS -->
     <h3>Controle de Tarefas</h3>
+<a href="{{ route('tarefas.pdf.all') }}" class="btn-pdf" style="display:inline-block; margin-bottom:20px;">
+Baixar PDF Geral
+</a>
+    
     <table>
         <thead>
             <tr>
@@ -156,7 +166,8 @@ button{
                         @csrf
                         <button class="btn-concluir">Concluir</button>
                     </form>
-                    <a href="{{ route('tarefas.edit',$tarefa->id) }}" class="btn-editar">Editar</a>
+                    {{-- <a href="{{ route('tarefas.edit',$tarefa->id) }}" class="btn-editar">Editar</a> --}}
+                    <a href="{{ route('tarefas.pdf.one',$tarefa->id) }}" class="btn-pdf">PDF</a>
                     <form action="{{ route('tarefas.destroy',$tarefa->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')

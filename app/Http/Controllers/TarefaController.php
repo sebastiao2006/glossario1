@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Tarefa;
 use App\Models\Cliente;
 use App\Models\Funcionario;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TarefaController extends Controller
 {
@@ -185,6 +186,24 @@ public function create()
 {
     $clientes = Cliente::all();
     return view('tarefas.create', compact('clientes'));
+}
+
+public function pdfAll()
+{
+    $tarefas = Tarefa::all();
+
+    $pdf = Pdf::loadView('pdf.tarefas', compact('tarefas'));
+
+    return $pdf->download('lista_tarefas.pdf');
+}
+
+public function pdfOne($id)
+{
+    $tarefa = Tarefa::findOrFail($id);
+
+    $pdf = Pdf::loadView('pdf.tarefa', compact('tarefa'));
+
+    return $pdf->download('tarefa_'.$tarefa->id.'.pdf');
 }
 
 }

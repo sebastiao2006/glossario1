@@ -7,6 +7,9 @@ use App\Http\Controllers\FuncionarioController;
 
 Route::get('/', [TarefaController::class, 'index'])->name('home');
 
+Route::get('/tarefas/pdf', [TarefaController::class,'pdfAll'])->name('tarefas.pdf.all');
+Route::get('/tarefas/pdf/{id}', [TarefaController::class,'pdfOne'])->name('tarefas.pdf.one');
+
 Route::post('/tarefas', [TarefaController::class, 'store'])->name('tarefas.store');
 
 Route::post('/tarefas/{id}/concluir', [TarefaController::class, 'concluir'])->name('tarefas.concluir');
