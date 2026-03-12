@@ -73,22 +73,22 @@
 
 <form action="/funcionarios" method="POST">
 
-@csrf
+    @csrf
 
-<input type="text" name="nome" placeholder="Nome" required>
+    <input type="text" name="nome" placeholder="Nome" required>
 
-<input type="email" name="email" placeholder="Email">
+    <input type="email" name="email" placeholder="Email">
 
-<input type="text" name="telefone" placeholder="Telefone">
+    <input type="text" name="telefone" placeholder="Telefone">
 
-<select name="cargo">
-<option value="">Cargo</option>
-<option>Contabilista</option>
-<option>Gestor</option>
-<option>Assistente</option>
-</select>
+    <select name="cargo">
+    <option value="">Cargo</option>
+    <option>Contabilista</option>
+    <option>Gestor</option>
+    <option>Assistente</option>
+    </select>
 
-<button type="submit">Cadastrar</button>
+    <button type="submit">Cadastrar</button>
 
 </form>
 
@@ -97,25 +97,25 @@
 
 <table>
 
-<tr>
-<th>ID</th>
-<th>Nome</th>
-<th>Email</th>
-<th>Telefone</th>
-<th>Cargo</th>
-</tr>
+    <tr>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>Email</th>
+    <th>Telefone</th>
+    <th>Cargo</th>
+    </tr>
 
-@foreach($funcionarios as $funcionario)
+    @foreach($funcionarios as $funcionario)
 
-<tr>
-<td>{{ $funcionario->id }}</td>
-<td>{{ $funcionario->nome }}</td>
-<td>{{ $funcionario->email }}</td>
-<td>{{ $funcionario->telefone }}</td>
-<td>{{ $funcionario->cargo }}</td>
-</tr>
+    <tr>
+    <td>{{ $funcionario->id }}</td>
+    <td>{{ $funcionario->nome }}</td>
+    <td>{{ $funcionario->email }}</td>
+    <td>{{ $funcionario->telefone }}</td>
+    <td>{{ $funcionario->cargo }}</td>
+    </tr>
 
-@endforeach
+    @endforeach
 
 </table>
 

@@ -46,35 +46,60 @@ button{
 
 <h2>Adicionar Nova Tarefa</h2>
 
-<form  class="formu"  method="POST" action="{{ route('tarefas.store') }}">
-    @csrf
+<form class="formu" method="POST" action="{{ route('tarefas.store') }}">
+@csrf
 
-    <input type="text" name="funcionario" placeholder="Funcionário" required>
+<select name="funcionario" required>
 
-    <input type="text" name="cliente" placeholder="Cliente" required>
+<option value="">Selecionar Funcionário</option>
 
-    <input type="text" name="tipo" placeholder="Tipo" required>
+@foreach($funcionarios as $funcionario)
 
-    <select name="prioridade" required>
-        <option value="">Prioridade</option>
-        <option value="Alta">Alta</option>
-        <option value="Média">Média</option>
-        <option value="Baixa">Baixa</option>
-    </select>
+<option value="{{ $funcionario->nome }}">
+{{ $funcionario->nome }}
+</option>
 
-    <input type="date" name="inicio" min="2025-12-12" max="2026-12-12" required>
+@endforeach
 
-    <input type="date" name="prazo" min="2025-12-12" max="2026-12-12" required>
+</select>
 
-    <select name="status" required>
-        <option value="">Status</option>
-        <option value="Pendente">Pendente</option>
-        <option value="Em andamento">Em andamento</option>
-        <option value="Concluído">Concluído</option>
-        <option value="Atrasado">Atrasado</option>
-    </select>
+<select name="cliente" required>
 
-    <button type="submit">Adicionar Tarefa</button>
+<option value="">Selecionar Cliente</option>
+
+@foreach($clientes as $cliente)
+
+<option value="{{ $cliente->nome }}">
+{{ $cliente->nome }}
+</option>
+
+@endforeach
+
+</select>
+
+<input type="text" name="tipo" placeholder="Tipo" required>
+
+<select name="prioridade" required>
+<option value="">Prioridade</option>
+<option value="Alta">Alta</option>
+<option value="Média">Média</option>
+<option value="Baixa">Baixa</option>
+</select>
+
+<input type="date" name="inicio" min="2025-12-12" max="2026-12-12" required>
+
+<input type="date" name="prazo" min="2025-12-12" max="2026-12-12" required>
+
+<select name="status" required>
+<option value="">Status</option>
+<option value="Pendente">Pendente</option>
+<option value="Em andamento">Em andamento</option>
+<option value="Concluído">Concluído</option>
+<option value="Atrasado">Atrasado</option>
+</select>
+
+<button type="submit">Adicionar Tarefa</button>
+
 </form>
     <!-- TABELA DE TAREFAS -->
     <h3>Controle de Tarefas</h3>

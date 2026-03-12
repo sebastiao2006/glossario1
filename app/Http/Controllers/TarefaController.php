@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tarefa;
+use App\Models\Cliente;
+use App\Models\Funcionario;
 
 class TarefaController extends Controller
 {
@@ -100,14 +102,11 @@ public function indexTarefas()
 {
     $tarefas = Tarefa::all();
 
-    // Se você quiser também mostrar dados por cliente
-    $clientes = Tarefa::select('cliente')
-        ->selectRaw('COUNT(*) as total')
-        ->selectRaw('GROUP_CONCAT(funcionario) as responsaveis')
-        ->groupBy('cliente')
-        ->get();
+    $clientes = Cliente::all();
 
-    return view('tarefas', compact('tarefas', 'clientes'));
+    $funcionarios = Funcionario::all();
+
+    return view('tarefas', compact('tarefas', 'clientes', 'funcionarios'));
 }
 
     public function store(Request $request)
@@ -181,6 +180,11 @@ public function update(Request $request,$id)
     ]);
 
     return redirect()->route('home');
+}
+public function create()
+{
+    $clientes = Cliente::all();
+    return view('tarefas.create', compact('clientes'));
 }
 
 }
