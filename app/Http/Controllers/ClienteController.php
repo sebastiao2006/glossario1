@@ -20,4 +20,12 @@ class ClienteController extends Controller
 
         return redirect('/clientes');
     }
+    public function destroy($id)
+{
+    $cliente = Cliente::findOrFail($id);
+
+    $cliente->delete();
+
+    return redirect()->back()->with('success', 'Cliente apagado com sucesso!');
+}
 }

@@ -17,6 +17,12 @@
         margin:auto;
         margin-top:30px;
         }
+        table form{
+display:inline;
+margin:0;
+padding:0;
+background:none;
+}
 
         form{
         background:white;
@@ -89,29 +95,39 @@
 
 
 
-       <h2>Lista de Clientes</h2>
+     <h2>Lista de Clientes</h2>
 
 <table>
 
-        <tr>
-        <th>ID</th>
-        <th>Empresa</th>
-        <th>Email</th>
-        <th>Telefone</th>
-        <th>NIF</th>
-        </tr>
+    <tr>
+    <th>ID</th>
+    <th>Empresa</th>
+    <th>Email</th>
+    <th>Telefone</th>
+    <th>NIF</th>
+    <th>Ação</th>
+    </tr>
 
-        @foreach($clientes as $cliente)
+    @foreach($clientes as $cliente)
 
-        <tr>
-        <td>{{ $cliente->id }}</td>
-        <td>{{ $cliente->nome }}</td>
-        <td>{{ $cliente->email }}</td>
-        <td>{{ $cliente->telefone }}</td>
-        <td>{{ $cliente->nif }}</td>
-        </tr>
+    <tr>
+    <td>{{ $cliente->id }}</td>
+    <td>{{ $cliente->nome }}</td>
+    <td>{{ $cliente->email }}</td>
+    <td>{{ $cliente->telefone }}</td>
+    <td>{{ $cliente->nif }}</td>
 
-        @endforeach
+    <td>
+    <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST">
+    @csrf
+    @method('DELETE')
+    <button type="submit">Apagar</button>
+    </form>
+    </td>
+
+    </tr>
+
+    @endforeach
 
 </table>
 

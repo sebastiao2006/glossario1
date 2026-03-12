@@ -21,6 +21,8 @@ Route::get('/clientes', [ClienteController::class, 'index']);
 
 Route::post('/clientes', [ClienteController::class, 'store']);
 
+Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+
 Route::get('/funcionarios', [FuncionarioController::class, 'index']);
 
 Route::post('/funcionarios', [FuncionarioController::class, 'store']);
