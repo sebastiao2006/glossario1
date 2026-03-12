@@ -2,51 +2,64 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Tarefa</title>
-
+<title>Detalhes da Tarefa</title>
 <style>
-
-body{
-font-family: Arial;
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
 }
 
-.box{
-border:1px solid #ddd;
-padding:20px;
+h3 {
+    margin-top: 20px;
 }
 
-h2{
-margin-bottom:20px;
+table {
+    width: 100%; /* tabela ocupa toda a largura */
+    margin: 20px auto;
+    border-collapse: collapse;
+    table-layout: fixed; /* garante largura uniforme das colunas */
 }
 
-p{
-margin:8px 0;
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px; /* aumenta o espaçamento */
+    text-align: left;
+    word-wrap: break-word; /* quebra texto grande */
 }
 
+th {
+    background-color: #faad14;
+}
 </style>
-
 </head>
 <body>
 
-<h2>Detalhes da Tarefa</h2>
+<h3>Detalhes da Tarefa</h3>
 
-<div class="box">
-
-<p><strong>Funcionário:</strong> {{ $tarefa->funcionario }}</p>
-
-<p><strong>Cliente:</strong> {{ $tarefa->cliente }}</p>
-
-<p><strong>Tipo:</strong> {{ $tarefa->tipo }}</p>
-
-<p><strong>Prioridade:</strong> {{ $tarefa->prioridade }}</p>
-
-<p><strong>Início:</strong> {{ $tarefa->inicio }}</p>
-
-<p><strong>Prazo:</strong> {{ $tarefa->prazo }}</p>
-
-<p><strong>Status:</strong> {{ $tarefa->status }}</p>
-
-</div>
+<table>
+    <thead>
+        <tr>
+            <th>Funcionário</th>
+            <th>Cliente</th>
+            <th>Tarefa</th>
+            <th>Prioridade</th>
+            <th>Início</th>
+            <th>Prazo de Entrega</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ $tarefa->funcionario }}</td>
+            <td>{{ $tarefa->cliente }}</td>
+            <td>{{ $tarefa->tipo }}</td>
+            <td>{{ $tarefa->prioridade }}</td>
+            <td>{{ $tarefa->inicio }}</td>
+            <td>{{ $tarefa->prazo }}</td>
+            <td>{{ $tarefa->status }}</td>
+        </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

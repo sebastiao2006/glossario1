@@ -215,7 +215,8 @@ public function pdfAll()
 {
     $tarefas = Tarefa::all();
 
-    $pdf = Pdf::loadView('pdf.tarefas', compact('tarefas'));
+    $pdf = Pdf::loadView('pdf.tarefas', compact('tarefas'))
+              ->setPaper('a4', 'landscape'); // <-- orientacao horizontal
 
     return $pdf->download('lista_tarefas.pdf');
 }
@@ -224,7 +225,8 @@ public function pdfOne($id)
 {
     $tarefa = Tarefa::findOrFail($id);
 
-    $pdf = Pdf::loadView('pdf.tarefa', compact('tarefa'));
+    $pdf = Pdf::loadView('pdf.tarefa', compact('tarefa'))
+              ->setPaper('a4', 'landscape'); // <-- orientacao horizontal
 
     return $pdf->download('tarefa_'.$tarefa->id.'.pdf');
 }

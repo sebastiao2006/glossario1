@@ -16,8 +16,8 @@ class Tarefa extends Model
         'status'
     ];
 
-    protected $casts = [
-        'inicio' => 'date',
-        'prazo' => 'date'
-    ];
+protected $casts = [
+    'inicio' => 'datetime',
+    'prazo' => 'datetime',
+];
 }
