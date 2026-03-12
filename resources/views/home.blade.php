@@ -298,7 +298,7 @@
                 <canvas id="statusChart"></canvas>
             </div>
 
-            <div class="card">
+           <div class="card">
                 <h3>Produtividade por Funcionário</h3>
                 <canvas id="teamChart"></canvas>
             </div>
@@ -310,6 +310,42 @@
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    
+
+const funcionarios = @json($ranking->pluck('funcionario'));
+const tarefas = @json($ranking->pluck('total'));
+
+const ctx = document.getElementById('teamChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: funcionarios,
+        datasets: [{
+            label: 'Tarefas Concluídas',
+            data: tarefas
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display:false }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    precision: 0,   // força números inteiros
+                    stepSize: 1     // incrementa de 1 em 1
+                }
+            }
+        }
+    }
+});
+
+
+</script>
 </body>
 
 

@@ -41,7 +41,7 @@ background:none;
         }
 
         button{
-        background:#feae1b;
+        background:#e74c3c;
         color:white;
         border:none;
         padding:10px 20px;

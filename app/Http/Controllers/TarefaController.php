@@ -7,6 +7,7 @@ use App\Models\Tarefa;
 use App\Models\Cliente;
 use App\Models\Funcionario;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class TarefaController extends Controller
 {
@@ -86,17 +87,30 @@ foreach($tarefas as $tarefa){
         }
     }
 }
-    return view('home', compact(
-        'tarefas',
-        'clientes',
-        'funcionarios',
-        'totalTasks',
-        'completedTasks',
-        'inProgressTasks',
-        'overdueTasks',
-        'productivity',
-        'alerts'
-    ));
+
+// RANKING FUNCIONÁRIOS (tarefas concluídas)
+
+$ranking = Tarefa::select('funcionario', DB::raw('count(*) as total'))
+    ->where('status','Concluído')
+    ->groupBy('funcionario')
+    ->orderByDesc('total')
+    ->get();
+
+return view('home', compact(
+    'tarefas',
+    'clientes',
+    'funcionarios',
+    'totalTasks',
+    'completedTasks',
+    'inProgressTasks',
+    'overdueTasks',
+    'productivity',
+    'alerts',
+    'ranking'
+));
+
+
+    
 }
 
 public function indexTarefas()
