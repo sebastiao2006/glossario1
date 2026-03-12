@@ -27,4 +27,6 @@ Route::get('/funcionarios', [FuncionarioController::class, 'index']);
 
 Route::post('/funcionarios', [FuncionarioController::class, 'store']);
 
+Route::delete('/funcionarios/{id}', [FuncionarioController::class, 'destroy'])->name('funcionarios.destroy');
+
 Route::get('/tarefas', [TarefaController::class, 'indexTarefas'])->name('tarefas.index');

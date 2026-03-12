@@ -17,6 +17,12 @@
         margin:auto;
         margin-top:30px;
         }
+        table form{
+        display:inline;
+        margin:0;
+        padding:0;
+        background:none;
+        }
 
         form{
         background:white;
@@ -97,25 +103,35 @@
 
 <table>
 
-    <tr>
-    <th>ID</th>
-    <th>Nome</th>
-    <th>Email</th>
-    <th>Telefone</th>
-    <th>Cargo</th>
-    </tr>
+        <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Cargo</th>
+        <th>Ação</th>
+        </tr>
 
-    @foreach($funcionarios as $funcionario)
+        @foreach($funcionarios as $funcionario)
 
-    <tr>
-    <td>{{ $funcionario->id }}</td>
-    <td>{{ $funcionario->nome }}</td>
-    <td>{{ $funcionario->email }}</td>
-    <td>{{ $funcionario->telefone }}</td>
-    <td>{{ $funcionario->cargo }}</td>
-    </tr>
+        <tr>
+        <td>{{ $funcionario->id }}</td>
+        <td>{{ $funcionario->nome }}</td>
+        <td>{{ $funcionario->email }}</td>
+        <td>{{ $funcionario->telefone }}</td>
+        <td>{{ $funcionario->cargo }}</td>
 
-    @endforeach
+        <td>
+        <form action="{{ route('funcionarios.destroy', $funcionario->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit">Apagar</button>
+        </form>
+        </td>
+
+        </tr>
+
+        @endforeach
 
 </table>
 

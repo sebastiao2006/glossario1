@@ -21,5 +21,12 @@ class FuncionarioController extends Controller
 
         return redirect('/funcionarios');
     }
+    public function destroy($id)
+    {
+        $funcionario = Funcionario::findOrFail($id);
+        $funcionario->delete();
+
+        return redirect()->back();
+    }
 
 }
